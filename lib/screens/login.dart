@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../shared/shared.dart';
 import '../services/services.dart';
+import 'package:flutter/services.dart';
 
 class LoginScreen extends StatefulWidget {
   createState() => LoginScreenState();
@@ -14,6 +15,7 @@ class LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp,]); // Bloquear la orientación de la pantalla a vertical y sin invertir.
     auth.getUser.then((user) {
       if(user != null) {
         Navigator.pushReplacementNamed(context, '/inicio');
@@ -32,7 +34,8 @@ class LoginScreenState extends State<LoginScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            FlutterLogo(size: 150,),
+            FlutterLogo(size: 50,),
+            Image.asset('assets/icons/logo_app1.png', width: 150, height: 150,),
             Text(
               'Iniciar Sesión',
               style: Theme.of(context).textTheme.headline,

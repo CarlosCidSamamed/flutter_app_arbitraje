@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../shared/shared.dart';
 import '../services/services.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/services.dart';
+
 
 class ProfileScreen extends StatelessWidget {
   final AuthService auth = AuthService();
@@ -11,6 +13,8 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     
     FirebaseUser user = Provider.of<FirebaseUser>(context);
+
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp,]); // Bloquear la orientación de la pantalla a vertical y sin invertir.
 
     if(user != null) {
       return Scaffold(
