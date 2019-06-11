@@ -1,0 +1,99 @@
+{
+  "project_info": {
+    "project_number": "264461572912",
+    "firebase_url": "https://apparbitrajeflutter.firebaseio.com",
+    "project_id": "apparbitrajeflutter",
+    "storage_bucket": "apparbitrajeflutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:264461572912:android:8c05a9e9f0c9ad06",
+        "android_client_info": {
+          "package_name": "com.fervenzagames.app_arbitraje_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "264461572912-5lcq37195r1hclu54rrvuqgfeq7oil70.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fervenzagames.app_arbitraje_flutter",
+            "certificate_hash": "84a90d52222e0a7da6784277af75d67ed2d9d641"
+          }
+        },
+        {
+          "client_id": "264461572912-ehocf3e4ud4jpc2erqt0htlqsp03ptcs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9tSAO7w0MO7mibrkPB0AZWZTnPVAW04g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "264461572912-ehocf3e4ud4jpc2erqt0htlqsp03ptcs.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "264461572912-f083lgm55t2db65djqg75h42o58cdrhh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.fervenzagames.apparbitrajeflutter"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:264461572912:android:543d9e7f364fceb9",
+        "android_client_info": {
+          "package_name": "com.fervenzagames.flutterapparbitraje"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "264461572912-6aguvog5o52abs6r5q1o8pmneavg3kor.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fervenzagames.flutterapparbitraje",
+            "certificate_hash": "84a90d52222e0a7da6784277af75d67ed2d9d641"
+          }
+        },
+        {
+          "client_id": "264461572912-ehocf3e4ud4jpc2erqt0htlqsp03ptcs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9tSAO7w0MO7mibrkPB0AZWZTnPVAW04g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "264461572912-ehocf3e4ud4jpc2erqt0htlqsp03ptcs.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "264461572912-f083lgm55t2db65djqg75h42o58cdrhh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.fervenzagames.apparbitrajeflutter"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
