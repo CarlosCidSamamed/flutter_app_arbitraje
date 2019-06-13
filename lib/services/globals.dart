@@ -16,6 +16,7 @@ class Global {
     Campeonato: (data) => Campeonato.fromMap(data),
     Modalidad: (data) => Modalidad.fromMap(data),
     Categoria: (data) => Categoria.fromMap(data),
+    Emparejamiento: (data) => Emparejamiento.fromMap(data),
     Combate: (data) => Combate.fromMap(data),
     Asalto: (data) => Asalto.fromMap(data),
     Competidor: (data) => Competidor.fromMap(data),
@@ -29,5 +30,22 @@ class Global {
 
   // Firestore References for Writes
   //static final Collection
+
+  // TODO: Añadir las colecciones de datos para los distintos modelos siguiendo el ejemplo del código del curso de Fireship de Flutter.
+  static final Collection<Organizador> organizadoresRef = Collection<Organizador>(path: 'organizadores');
+  //
+  static final Collection<Campeonato> campeonatosRef = Collection<Campeonato>(path: 'campeonatos');
+  static final Collection<Modalidad> modalidadesRef = Collection<Modalidad>(path: 'modalidades');
+  static final Collection<Categoria> categoriasRef = Collection<Categoria>(path: 'categorias');
+  static final Collection<Emparejamiento> emparejamientosRef = Collection<Emparejamiento>(path: 'emparejamientos');
+  static final Collection<Combate> combatesRef = Collection<Combate>(path: 'combates');
+  static final Collection<Asalto> asaltosRef = Collection<Asalto>(path: 'asaltos');
+  static final Collection<Competidor> competidoresRef = Collection<Competidor>(path: 'competidores');
+  static final Collection<Juez> juecesRef = Collection<Juez>(path: 'jueces');
+  static final Collection<Puntuacion> puntuacionesRef = Collection<Puntuacion>(path: 'puntuaciones');
+  static final Collection<Incidencia> incidenciasRef = Collection<Incidencia>(path: 'incidencias');
+  static final Collection<Escuela> escuelasRef = Collection<Escuela>(path: 'escuelas');
+  static final Collection<Usuario> usuariosRef = Collection<Usuario>(path: 'usuarios');
+  static final Collection<MensajeFCM> mensajesRef = Collection<MensajeFCM>(path: 'mensajes');
 
 }

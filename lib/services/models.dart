@@ -7,6 +7,7 @@
 //  Campeonato
 //  Modalidad
 //  Categoría
+//  Emparejamiento
 //  Combate
 //  Asalto
 //  Puntuacion
@@ -29,6 +30,7 @@ class MensajeFCM {
   String emisor;
   String receptor;
   String fechaHora;
+  bool leido;
 
 
   String idCamp;
@@ -193,6 +195,38 @@ class Categoria {
   }
 }
 
+enum EsFinal {SI, NO, TERCEROS}
+
+class Emparejamiento {
+  String id;
+  String numeroCombate;
+  String idRojo;
+  String idAzul;
+  String sigCombateGanador;
+  String sigCombatePerdedor;
+  EsFinal esFinal;
+  String idGanador;
+  String idPerdedor;
+
+  Emparejamiento({ this.id, this.numeroCombate, this.idRojo, this.idAzul,
+                   this.sigCombateGanador, this.sigCombatePerdedor,
+                   this.esFinal, this.idGanador, this.idPerdedor});
+
+  factory Emparejamiento.fromMap(Map data){
+    return Emparejamiento(
+      id: data['id'],
+      numeroCombate: data['numeroCombate'],
+      idRojo: data['idRojo'],
+      idAzul: data['idAzul'],
+      sigCombateGanador: data['sigCombateGanador'],
+      sigCombatePerdedor: data['sigCombatePerdedor'],
+      esFinal: data['esFinal'],
+      idGanador: data['idGanador'],
+      idPerdedor: data['idPerdedor']
+    );
+  }
+}
+
 enum Estado {Pendiente, Finalizado, Cancelado}
 
 class Combate {
@@ -209,6 +243,9 @@ class Combate {
 
   List<Asalto> listaAsaltos;
 
+  String numAsaltosRojo;
+  String numAsaltosAzul;
+
   String modalidad;
   String categoria;
   String campeonato;
@@ -220,7 +257,8 @@ class Combate {
   List<String> listaIDsJueces;
 
   Combate({ this.idCombate, this.numCombate, this.ganador, this.perdedor, this.motivo,
-            this.enlaceVideo, this.idRojo, this.idAzul, this.listaAsaltos, 
+            this.enlaceVideo, this.idRojo, this.idAzul, this.listaAsaltos,
+            this.numAsaltosRojo, this.numAsaltosAzul,
             this.modalidad, this.categoria, this.campeonato, this.idZonaCombate,
             this.estadoCombate, this.numJuecesConfirmados, this.listaIDsJueces});
 
@@ -235,6 +273,8 @@ class Combate {
       idRojo: data['idRojo'],
       idAzul: data['idAzul'],
       listaAsaltos: (data['listaAsaltos'] as List ?? []).map((v) => Asalto.fromMap(v)).toList(),
+      numAsaltosRojo: data['numAsaltosRojo'],
+      numAsaltosAzul: data['numAsaltosAzul'],
       modalidad: data['modalidad'],
       categoria: data['categoria'],
       campeonato: data['campeonato'],
@@ -249,6 +289,8 @@ class Combate {
 class Asalto {
   String idAsalto;
   String numAsalto;
+  String fotoRojo;
+  String fotoAzul;
   String ganador;
   String perdedor;
   String motivo;
@@ -260,7 +302,9 @@ class Asalto {
   List<Incidencia> listaIncidencias;
   Estado estado;
 
-  Asalto({ this.idAsalto, this.numAsalto, this.ganador, this.perdedor, this.motivo, this.descripcion,
+  Asalto({ this.idAsalto, this.numAsalto,
+           this.fotoRojo, this.fotoAzul,
+           this.ganador, this.perdedor, this.motivo, this.descripcion,
            this.puntuacionRojo, this.puntuacionAzul, this.duracion, 
            this.listaPuntuaciones, this.listaIncidencias, this.estado});
 
@@ -268,6 +312,8 @@ class Asalto {
     return Asalto(
       idAsalto: data['idAsalto'],
       numAsalto: data['numAsalto'],
+      fotoRojo: data['fotoRojo'],
+      fotoAzul: data['fotoAzul'],
       ganador: data['ganador'],
       perdedor: data['perdedor'],
       motivo: data['motivo'],
