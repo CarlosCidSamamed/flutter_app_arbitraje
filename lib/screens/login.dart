@@ -18,7 +18,12 @@ class LoginScreenState extends State<LoginScreen> {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp,]); // Bloquear la orientación de la pantalla a vertical y sin invertir.
     auth.getUser.then((user) {
       if(user != null) {
-        Navigator.pushReplacementNamed(context, '/inicio');
+        // Si se ha iniciado sesión deberemos detectar si el usuario es ADMIN, EDITOR, JUEZMESA o JUEZSILLA.
+        // Si es la primera vez que se inicia sesión con ese usuario de Firebase se deberá generar el documento correspondiente en la colección USUARIOS de la BD.
+        // Esto se hace con el método updateUserData de la clase auth. (services/auth.dart)
+        Navigator.pushReplacementNamed(context, '/perfil');
+      } else { // Invitado
+        LoadingScreen();
       }
     },
     );
@@ -80,7 +85,7 @@ class LoginButton extends StatelessWidget {
           onPressed: () async {
             var user = await loginMethod();
             if (user != null) {
-              Navigator.pushReplacementNamed(context, '/inicio');
+              Navigator.pushReplacementNamed(context, '/perfil');
             }
           },
       label: Expanded(
