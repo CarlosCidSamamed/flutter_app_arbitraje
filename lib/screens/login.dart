@@ -22,7 +22,7 @@ class LoginScreenState extends State<LoginScreen> {
         // Si es la primera vez que se inicia sesión con ese usuario de Firebase se deberá generar el documento correspondiente en la colección USUARIOS de la BD.
         // Esto se hace con el método updateUserData de la clase auth. (services/auth.dart)
         Navigator.pushReplacementNamed(context, '/perfil');
-      } else { // Invitado
+      } else { // User == null
         LoadingScreen();
       }
     },
@@ -42,11 +42,15 @@ class LoginScreenState extends State<LoginScreen> {
             FlutterLogo(size: 50,),
             Image.asset('assets/icons/logo_app1.png', width: 150, height: 150,),
             Text(
-              'Iniciar Sesión',
+              'AppArbitraje',
               style: Theme.of(context).textTheme.headline,
               textAlign: TextAlign.center,
             ),
-            //Text()
+            Text(
+              'Iniciar Sesión',
+              style: Theme.of(context).textTheme.subhead,
+              textAlign: TextAlign.center,
+            ),
             LoginButton(
               text: 'Usar GOOGLE',
               icon: FontAwesomeIcons.google,

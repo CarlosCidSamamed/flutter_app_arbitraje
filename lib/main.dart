@@ -24,13 +24,22 @@ class MyApp extends StatelessWidget {
         // Named Routes
         routes: {
           '/': (context) => LoginScreen(),
+          //'/inicio': (context) => HomeScreen(),
           '/perfil': (context) => ProfileScreen(),
           '/admin': (context) => AdminScreen(),
+          //'/editor': (context) => EditorScreen(),
+          //'/mesa': (context) => MesaScreen(),
+          //'/silla': (context) => SillaScreen(),
+          //'/visitante': (context) => VisitanteScreen(),
+          '/acerca': (context) => AboutScreen(),
         },
 
         // Theme
         theme: ThemeData(
           fontFamily: 'Nunito',
+          appBarTheme: AppBarTheme(
+              color: Colors.deepPurple
+          ),
           bottomAppBarTheme: BottomAppBarTheme(
             color: Colors.black87,
           ),

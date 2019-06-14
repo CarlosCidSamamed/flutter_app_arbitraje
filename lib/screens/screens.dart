@@ -6,3 +6,6 @@ export 'about.dart';
 export 'admin.dart';
 export 'editor.dart';
 export 'juezMesa.dart';
+export 'juezSilla.dart';
+export 'visitante.dart';
+export 'inicio.dart';

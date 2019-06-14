@@ -19,7 +19,7 @@ class ProfileScreen extends StatelessWidget {
     if(user != null) {
       return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.deepPurple, 
+          //backgroundColor: Colors.deepPurple,
           title: Text(user.displayName ?? 'Anónimo'),
           ),
           body: Center(
@@ -51,6 +51,7 @@ class ProfileScreen extends StatelessWidget {
               ],
             ),
           ),
+        drawer: MenuLateral(),
       );
     } else {
       return LoadingScreen();
