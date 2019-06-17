@@ -10,62 +10,57 @@ import 'dart:async';
 class HomeScreen extends StatelessWidget {
 
   final AuthService auth = new AuthService();
+  bool userDocOK = false;
 
   @override
   Widget build(BuildContext context) {
     // Se evalúa el usuario que ha iniciado sesión para poder redirigir a cada uno a su pantalla correspondiente.
-    //FirebaseUser user = Provider.of<FirebaseUser>(context);
-    auth.getUser.then((user) {
-      if(user != null) { // Si un usuario ha iniciado sesión se lee su registro en la colección USUARIOS para comprobar su ROL.
-        // Obtener los datos del usuario cuyo documento de la colección USUARIOS tiene el nombre de user.uid
-        UserData<Usuario> docUsuario = new UserData<Usuario>(
-            collection: 'usuarios');
-        if (docUsuario.getDocument() != null) {
-          Future<Usuario> usuario = docUsuario.getDocument();
-          usuario.then((v) {
-            switch (v.rol) {
-              case Rol.Admin:
-                {
-                  Navigator.pushNamed(context, '/admin');
-                  break;
-                }
-              case Rol.Editor:
-                {
-                  //Navigator.pushNamed(context, '/editor');
-                  break;
-                }
-              case Rol.JuezMesa:
-                {
-                  //Navigator.pushNamed(context, '/mesa');
-                  break;
-                }
-              case Rol.JuezSilla:
-                {
-                  //Navigator.pushNamed(context, '/silla');
-                  break;
-                }
-              case Rol.Visitante:
-                {
-                  //Navigator.pushNamed(context, '/visitante');
-                  break;
-                }
-              default:
-                {
-                  Navigator.pushNamed(context, '/acerca');
-                  break;
-                }
-            }
-          }, onError: (e) {
-            print(e.toString());
-          });
+    FirebaseUser user = Provider.of<FirebaseUser>(context);
+
+    return FutureBuilder(
+      future: Global.usuariosRef.getData(),
+      builder: (BuildContext context, AsyncSnapshot snap) {
+        if(snap.hasData){
+          List<Usuario> usuarios = snap.data;
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('Lista de Usuarios'),
+            ),
+            drawer: MenuLateral(),
+            body: GridView.count(
+              primary: false,
+              padding: EdgeInsets.all(20.0),
+              crossAxisSpacing: 10.0,
+              crossAxisCount: 2,
+              children: usuarios.map((usuario) => UsuarioItem(usuario: usuario)).toList(),
+            ),
+          );
         }
-      } else {
-        return Container(
-          child: Center(
-            child: Text('Inicio'),
+      },
+    );
+  }
+}
+
+class UsuarioItem extends StatelessWidget {
+  final Usuario usuario;
+  const UsuarioItem({Key key, this.usuario }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Hero(
+          tag: usuario.foto,
+          child: Card(
+            clipBehavior: Clip.antiAlias,
+            child: InkWell(
+              onTap:  () {
+                // TODO: Completar esta clase siguiendo la clase topcis.dart (Fireship)
+                Navigator.of(context).pop();
+
+              },
+            ),
           ),
-        );
-      }
-    });
+      ),
+    );
   }
 }
