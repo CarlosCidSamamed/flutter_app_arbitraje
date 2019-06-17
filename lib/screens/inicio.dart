@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
     FirebaseUser user = Provider.of<FirebaseUser>(context);
 
     return FutureBuilder(
-      future: Global.usuariosRef.getData(),
+      future: Global.usuariosRef.getData(), // Obtiene los datos de todos los usuarios registrados en la BD en la colección Usuarios.
       builder: (BuildContext context, AsyncSnapshot snap) {
         if(snap.hasData){
           List<Usuario> usuarios = snap.data;
@@ -55,11 +55,79 @@ class UsuarioItem extends StatelessWidget {
             child: InkWell(
               onTap:  () {
                 // TODO: Completar esta clase siguiendo la clase topcis.dart (Fireship)
-                Navigator.of(context).pop();
-
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => UsuarioScreen(usuario: usuario),
+                  ),
+                );
               },
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    height: 120,
+                    width: 120,
+                    alignment: Alignment(0.0, 0.0),
+                    child: Image.network(usuario.foto, fit: BoxFit.fitWidth),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 10, right: 10),
+                            child: Text(
+                              usuario.nombreUsuario,
+                              style: TextStyle(
+                                height: 1.5, fontWeight: FontWeight.bold
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                              softWrap: false,
+                            ),
+                          ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
+      ),
+    );
+  }
+}
+
+class UsuarioScreen extends StatelessWidget {
+  final Usuario usuario;
+
+  UsuarioScreen({ this.usuario });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: ListView(
+        children: [
+          Hero(
+            tag: usuario.foto,
+            child: Image.network(
+              usuario.foto, width: MediaQuery.of(context).size.width,
+            ),
+          ),
+          Text(
+            usuario.nombreUsuario,
+            style: TextStyle(height : 2, fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          Text(
+            usuario.mostrarRol(usuario.rol),
+            style: TextStyle(height : 2, fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          Text(
+            usuario.email,
+            style: TextStyle(height : 2, fontSize: 15, fontWeight: FontWeight.bold),
+          ),
+        ],
       ),
     );
   }

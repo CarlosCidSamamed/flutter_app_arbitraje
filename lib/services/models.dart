@@ -550,7 +550,8 @@ class Usuario {
   String email;
   String password;
   String nombreUsuario;
-  Rol rol;
+  //Rol rol;
+  String rol;
   String foto;
 
   Usuario({ this.id, this.email, this.password, this.nombreUsuario, this.rol, this.foto });
@@ -561,8 +562,32 @@ class Usuario {
       email: data['email'],
       password: data['password'],
       nombreUsuario: data['nombreUsuario'],
-      rol: data['rol'],
+      rol: data['Rol'] ?? '',
       foto: data['foto']
     );
   }
+
+  String mostrarRol(String rol){
+    switch(rol){
+      case "admin":{
+        return "Admin";
+      }
+      case "editor":{
+        return "Editor";
+      }
+      case "juezMesa":{
+        return "Juez de Mesa";
+      }
+      case "juezSilla":{
+        return "Juez de Silla";
+      }
+      case "visitante":{
+        return "Visitante";
+      }
+      default: {
+        return "Rol no Especificado";
+      }
+    }
+  }
+
 }
