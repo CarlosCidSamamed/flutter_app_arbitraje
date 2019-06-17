@@ -65,12 +65,19 @@ class UsuarioItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    height: 120,
-                    width: 120,
-                    alignment: Alignment(0.0, 0.0),
-                    child: Image.network(usuario.foto, fit: BoxFit.fitWidth),
+                  /*Container(
+                    padding: EdgeInsets.all(20.0),
+                    child: Image.network(usuario.foto, fit: BoxFit.scaleDown, alignment: Alignment.bottomCenter,),
+                  ),*/
+                  Expanded(
+                    child: Container(
+                      child: Image.network(usuario.foto, fit: BoxFit.fitHeight),
+                      alignment: Alignment.bottomCenter,
+                      padding: EdgeInsets.only(top: 10.0),
+                    ),
+                    flex: 1,
                   ),
+                  const SizedBox(height: 10.0,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -106,26 +113,32 @@ class UsuarioScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text('Detalle del Usuario'),
+      ),
       body: ListView(
         children: [
           Hero(
             tag: usuario.foto,
-            child: Image.network(
-              usuario.foto, width: MediaQuery.of(context).size.width,
+            child: Container(
+              child: Image.network(usuario.foto,),
+              padding: EdgeInsets.all(100.0),
             ),
           ),
           Text(
             usuario.nombreUsuario,
             style: TextStyle(height : 2, fontSize: 20, fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
           ),
           Text(
             usuario.mostrarRol(usuario.rol),
             style: TextStyle(height : 2, fontSize: 20, fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
           ),
           Text(
             usuario.email,
             style: TextStyle(height : 2, fontSize: 15, fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
           ),
         ],
       ),
