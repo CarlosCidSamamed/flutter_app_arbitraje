@@ -4,6 +4,8 @@ import '../shared/shared.dart';
 import '../services/services.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 
 
 class ProfileScreen extends StatelessWidget {
@@ -11,50 +13,93 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     FirebaseUser user = Provider.of<FirebaseUser>(context);
 
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp,]); // Bloquear la orientación de la pantalla a vertical y sin invertir.
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]); // Bloquear la orientación de la pantalla a vertical y sin invertir.
 
-    if(user != null) {
-      return Scaffold(
-        appBar: AppBar(
-          //backgroundColor: Colors.deepPurple,
-          title: Text(user.displayName ?? 'Anónimo'),
-          ),
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                if(user.photoUrl != null)
-                  Container(
-                    width: 100,
-                    height: 100,
-                    margin: EdgeInsets.only(top: 50),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(image: NetworkImage(user.photoUrl)),
+    if (user != null) {
+      LoadingScreen();
+      Future datos = UserData<Usuario>(collection: 'usuarios').getDocument();
+      if (datos == null) {
+        return AlertDialog(
+          title: Text("Error"),
+          content: Text("Error al obtener los datos del Usuario de la BD..."),
+          actions: [
+            FlatButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/acerca');
+                },
+                child: Text("Cerrar")),
+          ],
+        );
+      } else {
+        print('FIREBASE AUTH USER UID : ' + user.uid);
+        print('Se han leído datos del usuario de la BD');
+        return FutureBuilder(
+            future: datos,//Global.userRef.getDocument(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.hasData) {
+                  Usuario usuario = snapshot.data;
+                  return Scaffold(
+                    appBar: AppBar(
+                        title: Text('Perfil del Usuario'),
                     ),
-                  ),
-                Text(user.email ?? '', style: Theme.of(context).textTheme.headline),
-                Spacer(),
-                FlatButton(
-                  child: Text('Cerrar Sesión'),
-                  color: Colors.blueGrey,
-                  onPressed: () async {
-                    await auth.signOut();
-                    Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
-                  },
-                ),
-                Spacer(),
-              ],
-            ),
-          ),
-        drawer: MenuLateral(),
-      );
-    } else {
-      return LoadingScreen();
-    }   
+                    body: Stack(
+                      children: [
+                        Column(
+                          children: [
+                            CustomCard(
+                              urlFoto: user.photoUrl ?? '',
+                              icono: FontAwesomeIcons.google,
+                              titulo: user.displayName ?? '',
+                              texto1: user.email ?? '',
+                              texto2: '',
+                            ),
+                            CustomCard(
+                              urlFoto: usuario.foto ?? '',
+                              icono: FontAwesomeIcons.user,
+                              titulo: usuario.nombreUsuario ?? '',
+                              texto1: usuario.mostrarRol(usuario.rol) ?? '',
+                              texto2: usuario.email ?? '',
+                            ),
+                            /*IconButton(
+                                icon: Icon(FontAwesomeIcons.signOutAlt),
+                                color: Colors.purpleAccent,
+                                onPressed: () {
+                                  auth.signOut();
+                                  Navigator.of(context).pushNamed('/');
+                            }),*/
+                          ],
+                        ),
+                      ],
+                    ),
+                    drawer: MenuLateral(),
+                  );
+                }
+                if (snapshot.hasError) {
+                  return AlertDialog(
+                    title: Text("Error"),
+                    content: Text(
+                        "Error al obtener los datos del Usuario de la BD...\n\n" +
+                            snapshot.error.toString()),
+                    actions: [
+                      FlatButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/acerca');
+                          },
+                          child: Text("Cerrar")),
+                    ],
+                  );
+                }
+              } else {
+                return LoadingScreen();
+              }
+            }
+        );
+      }
+    }
   }
 }

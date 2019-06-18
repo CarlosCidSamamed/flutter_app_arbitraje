@@ -35,6 +35,8 @@ class HomeScreen extends StatelessWidget {
               children: usuarios.map((usuario) => UsuarioItem(usuario: usuario)).toList(),
             ),
           );
+        } else {
+          return LoadingScreen(); // Mientras no se leen los datos para el FutureBuilder se muestra una pantalla de carga.
         }
       },
     );
@@ -54,7 +56,6 @@ class UsuarioItem extends StatelessWidget {
             clipBehavior: Clip.antiAlias,
             child: InkWell(
               onTap:  () {
-                // TODO: Completar esta clase siguiendo la clase topcis.dart (Fireship)
                 Navigator.of(context).push(
                   MaterialPageRoute(
                       builder: (BuildContext context) => UsuarioScreen(usuario: usuario),

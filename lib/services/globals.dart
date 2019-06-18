@@ -34,6 +34,7 @@ class Global {
   // TODO: Añadir las colecciones de datos para los distintos modelos siguiendo el ejemplo del código del curso de Fireship de Flutter.
   static final Collection<Organizador> organizadoresRef = Collection<Organizador>(path: 'organizadores');
   static final Collection<Usuario> usuariosRef = Collection<Usuario>(path: 'usuarios');
+  static final UserData<Usuario> userRef = UserData<Usuario>(collection: 'usuarios');
   static final Collection<MensajeFCM> mensajesRef = Collection<MensajeFCM>(path: 'mensajes');
   // Se inicializan aquí estas referencias pero en la prácticas las referencias serán variables. Por ejemplo, la colección de los campeonatos de una organización
   // deberá incluir en su ruta el id de dicha organización.
