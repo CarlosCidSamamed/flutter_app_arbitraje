@@ -22,30 +22,7 @@ class _AdminScreenState extends State<AdminScreen> {
   Widget build(BuildContext context) {
     // Se evalúa el usuario que ha iniciado sesión para poder redirigir a cada uno a su pantalla correspondiente.
     FirebaseUser user = Provider.of<FirebaseUser>(context);
-
-    return FutureBuilder(
-      future: Global.usuariosRef.getData(), // Obtiene los datos de todos los usuarios registrados en la BD en la colección Usuarios.
-      builder: (BuildContext context, AsyncSnapshot snap) {
-        if(snap.hasData){
-          List<Usuario> usuarios = snap.data;
-          return Scaffold(
-            appBar: AppBar(
-              title: Text('Administración'),
-            ),
-            drawer: MenuLateral(),
-            body: GridView.count(
-              primary: false,
-              padding: EdgeInsets.all(20.0),
-              crossAxisSpacing: 10.0,
-              crossAxisCount: 2,
-              children: usuarios.map((usuario) => UsuarioItem(usuario: usuario)).toList(),
-            ),
-          );
-        } else {
-          return LoadingScreen(); // Mientras no se leen los datos para el FutureBuilder se muestra una pantalla de carga.
-        }
-      },
-    );
+    return UsuariosList();
   }
 
 

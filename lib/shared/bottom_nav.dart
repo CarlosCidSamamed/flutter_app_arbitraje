@@ -15,7 +15,8 @@ class AppBottomNav extends StatelessWidget {
           title: Text('Listados'),
         ),
         BottomNavigationBarItem(
-          icon: Icon(FontAwesomeIcons.user, size: 20)
+          icon: Icon(FontAwesomeIcons.user, size: 20),
+          title: Text('Usuarios'),
         ),
       ].toList(),
       fixedColor: Colors.deepPurple[200],
