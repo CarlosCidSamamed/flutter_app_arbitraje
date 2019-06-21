@@ -15,13 +15,16 @@ class CustomCard extends StatelessWidget {
     return Card(
       child: Row(
         children: [
-          Container(
-            width: 100,
-            height: 100,
-            //margin: EdgeInsets.only(top: 50),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              image : DecorationImage(image: NetworkImage(urlFoto)),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              width: 100,
+              height: 100,
+              //margin: EdgeInsets.only(top: 50),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                image : DecorationImage(image: NetworkImage(urlFoto)),
+              ),
             ),
           ),
           Column(

@@ -41,8 +41,9 @@ class MenuLateral extends StatelessWidget {
               title: Text('Inicio'),
               trailing: Icon(FontAwesomeIcons.home),
               onTap: () {
-                Navigator.pushNamed(context, '/inicio');
+                //Navigator.pushNamed(context, '/inicio');
                 //Navigator.pop(context);
+                UserManegement().authorizeAccess(context);
               },
             ),
             Divider(),

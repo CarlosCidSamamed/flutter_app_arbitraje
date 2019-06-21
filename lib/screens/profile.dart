@@ -51,27 +51,33 @@ class ProfileScreen extends StatelessWidget {
                       children: [
                         Column(
                           children: [
-                            CustomCard(
-                              urlFoto: user.photoUrl ?? '',
-                              icono: FontAwesomeIcons.google,
-                              titulo: user.displayName ?? '',
-                              texto1: user.email ?? '',
-                              texto2: '',
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: CustomCard(
+                                urlFoto: user.photoUrl ?? '',
+                                icono: FontAwesomeIcons.google,
+                                titulo: user.displayName ?? '',
+                                texto1: user.email ?? '',
+                                texto2: '',
+                              ),
                             ),
-                            CustomCard(
-                              urlFoto: usuario.foto ?? '',
-                              icono: FontAwesomeIcons.user,
-                              titulo: usuario.nombreUsuario ?? '',
-                              texto1: usuario.mostrarRol(usuario.rol) ?? '',
-                              texto2: usuario.email ?? '',
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: CustomCard(
+                                urlFoto: usuario.foto ?? '',
+                                icono: FontAwesomeIcons.user,
+                                titulo: usuario.nombreUsuario ?? '',
+                                texto1: usuario.mostrarRol(usuario.rol) ?? '',
+                                texto2: usuario.email ?? '',
+                              ),
                             ),
-                            /*IconButton(
+                            IconButton(
                                 icon: Icon(FontAwesomeIcons.signOutAlt),
                                 color: Colors.purpleAccent,
                                 onPressed: () {
                                   auth.signOut();
                                   Navigator.of(context).pushNamed('/');
-                            }),*/
+                            }),
                           ],
                         ),
                       ],
