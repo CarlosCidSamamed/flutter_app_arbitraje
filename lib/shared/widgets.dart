@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import '../services/models.dart';
 import 'package:flutter/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../services/globals.dart';
+import '../services/services.dart';
 import '../shared/shared.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UsuarioItem extends StatelessWidget {
   final Usuario usuario;
@@ -165,6 +166,15 @@ class MyDialog extends Dialog {
               shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
               onPressed: () {
                 print("Se ha pulsado Aceptar Edición");
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (BuildContext context){
+                    return AlertDialog(
+                      content: MyCustomForm(),
+                    );
+                  }
+                );
               },
             ),
             RaisedButton(
@@ -222,6 +232,85 @@ class MyDialog extends Dialog {
   }
 }
 
+class MyCustomForm extends StatefulWidget {
+  @override
+  _MyCustomFormState createState() => _MyCustomFormState();
+}
+
+class _MyCustomFormState extends State<MyCustomForm> {
+  // Create a global key that uniquely identifies the Form widget
+  // and allows validation of the form.
+  //
+  // Note: This is a `GlobalKey<FormState>`,
+  // not a GlobalKey<MyCustomFormState>.
+  final _formKey = GlobalKey<FormState>();
+
+  final Future<FirebaseUser> user = FirebaseAuth.instance.currentUser();
+
+  String uid;
+
+  @override
+  Widget build(BuildContext context) {
+    user.then((value) {
+      uid = value.uid;
+    });
+    // Build a Form widget using the _formKey created above.
+    return Form(
+      key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          //Widget con los campos correspondientes a cada uno de los modelos de la BD.
+
+          //TODO: REvisar la definción de EditUsuarioWidget --> Mi idea es generar un formulario scrollable con los campos editables del documento de un Usuario.
+          //EditUsuarioWidget(uid: uid),
+
+          /*TextFormField(
+            validator: (value) {
+              if (value.isEmpty) {
+                return 'Introduzca texto';
+              }
+              return null;
+            },
+          ),*/
+          Row(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16.0,horizontal: 16.0),
+                child: RaisedButton(
+                  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+                  onPressed: () {
+                    // Validate returns true if the form is valid, or false
+                    // otherwise.
+                    if (_formKey.currentState.validate()) {
+                      // If the form is valid, display a Snackbar.
+                      Scaffold.of(context)
+                          .showSnackBar(SnackBar(content: Text('Processando Datos')));
+                    }
+                  },
+                  child: Text('Enviar'),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16.0,horizontal: 16.0),
+                child: RaisedButton(
+                  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Cancelar'),
+                ),
+              ),
+            ],
+          ),
+        ],
+
+      ),
+    );
+  }
+}
+
+
 class UsuariosList extends StatefulWidget {
   @override
   _UsuariosListState createState() => _UsuariosListState();
@@ -253,5 +342,91 @@ class _UsuariosListState extends State<UsuariosList> {
         }
       },
     );
+  }
+}
+
+class EditUsuarioWidget extends StatefulWidget {
+
+  final String uid;
+
+  EditUsuarioWidget({ this.uid });
+
+  @override
+  _EditUsuarioWidgetState createState() => _EditUsuarioWidgetState();
+}
+
+class _EditUsuarioWidgetState extends State<EditUsuarioWidget> {
+  Future<Usuario> oldValues;
+  List<String> strings;
+  List<DropdownMenuItem<String>> items;
+  String valorActual;
+
+  @override
+  Widget build(BuildContext context) {
+    LoadingScreen();
+    oldValues = UserData<Usuario>(collection: 'usuarios').getDocument();
+    if(oldValues == null){
+      return AlertDialog(
+        title: Text("Error"),
+        content: Text("Error al leer el documento del Usuario de la BD..."),
+        actions: <Widget>[
+          RaisedButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text("Cerrar"),
+          ),
+        ],
+      );
+    } else {
+      strings = ['Admin', 'Editor', 'Juez de Mesa', 'Juez de Silla', 'Visitante'];
+      items = strings.map((String value) => DropdownMenuItem<String>(
+        value: value,
+        child: Text(value),
+      ));
+      return FutureBuilder(
+        future: oldValues,
+        builder: (BuildContext context, AsyncSnapshot snapshot){
+          return Stack( // Este será el widget que definirá el cuerpo del formulario de edición de los datos de un Usuario.
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  // Nombre de Usuario
+                  TextFormField(
+                    decoration:const InputDecoration(
+                      icon: Icon(FontAwesomeIcons.user),
+                      hintText: "Nombre de Usuario",
+                      labelText: "Nombre",
+                    ),
+                    onSaved: (String value) {
+                      // Aquí deberemos actualizar el valor del campo nombreUsuario en el documento de la BD.
+                    },
+                    validator: (String value) {
+                      return value.length < 5 ? 'El nombre es demasiado corto' : '';
+                    },
+                  ),
+                  // Password
+                  TextFormField(),
+                  // Email
+                  TextFormField(),
+                  // Foto
+                  TextFormField(),
+                  // Rol
+                  DropdownButton(
+                    value: 'Elija',
+                    items: this.items,
+                    onChanged: ((String newValue) {
+                      setState(() {
+                        valorActual = newValue;
+                      });
+                    }),
+                  ),
+                ],
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 }
