@@ -239,6 +239,21 @@ class MyDialog extends Dialog {
       },
     );
   }
+
+  Future<void> showMyFilterDialog(BuildContext context) async {
+    return showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return SimpleDialog(
+              title: Text(message),
+              children: <Widget>[
+                //FiltroUsuarios(),
+              ]
+          );
+        }
+        );
+  }
 }
 
 class MyCustomForm extends StatefulWidget {

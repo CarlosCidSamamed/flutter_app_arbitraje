@@ -46,6 +46,7 @@ class _AdminScreenState extends State<AdminScreen> {
             switch(idx){
               case 0:{
                 print("Se ha pulsado Listados");
+                Navigator.of(context).pushNamed('/listados');
                 break;
               }
               case 1:{

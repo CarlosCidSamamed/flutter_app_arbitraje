@@ -4,3 +4,5 @@ export 'loader.dart';
 export 'menu.dart';
 export 'custom_card.dart';
 export 'widgets.dart';
+export 'lists/lists.dart';
+export 'filtros.dart';

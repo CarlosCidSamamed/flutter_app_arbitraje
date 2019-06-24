@@ -51,7 +51,7 @@ class MenuLateral extends StatelessWidget {
               title: Text('Listados'),
               trailing: Icon(FontAwesomeIcons.list),
               onTap: () {
-                Navigator.pop(context); // Cerrar el menú lateral.
+                Navigator.of(context).pushNamed('/listados'); // Cerrar el menú lateral.
               },
             ),
             ListTile(

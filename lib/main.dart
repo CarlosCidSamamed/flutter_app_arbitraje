@@ -4,6 +4,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'services/services.dart';
 import 'screens/screens.dart';
+import 'shared/shared.dart';
 import 'package:provider/provider.dart';
 
 void main() => runApp(MyApp());
@@ -32,6 +33,10 @@ class MyApp extends StatelessWidget {
           //'/silla': (context) => SillaScreen(),
           //'/visitante': (context) => VisitanteScreen(),
           '/acerca': (context) => AboutScreen(),
+          // Listados ADMIN
+          '/listados': (context) => AdminListHubScreen(),
+          //'/listados/usuarios': (context) => UsuariosListScreen(),
+          '/listados/usuarios': (context) => FiltroUsuarios(),
         },
 
         // Theme
