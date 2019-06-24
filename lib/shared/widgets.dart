@@ -166,6 +166,15 @@ class MyDialog extends Dialog {
               shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
               onPressed: () {
                 print("Se ha pulsado Aceptar Edición");
+                /*Navigator.of(context).push(new MaterialPageRoute(
+                    builder: (BuildContext context){
+                      return AlertDialog(
+                        content: MyCustomForm(),
+                      );
+                    },
+                    fullscreenDialog: true,
+                  ),
+                );*/
                 showDialog(
                   context: context,
                   barrierDismissible: false,
@@ -262,8 +271,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
         children: <Widget>[
           //Widget con los campos correspondientes a cada uno de los modelos de la BD.
 
-          //TODO: REvisar la definción de EditUsuarioWidget --> Mi idea es generar un formulario scrollable con los campos editables del documento de un Usuario.
-          //EditUsuarioWidget(uid: uid),
+          EditUsuarioWidget(uid: uid),
 
           /*TextFormField(
             validator: (value) {
@@ -283,9 +291,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
                     // Validate returns true if the form is valid, or false
                     // otherwise.
                     if (_formKey.currentState.validate()) {
-                      // If the form is valid, display a Snackbar.
-                      Scaffold.of(context)
-                          .showSnackBar(SnackBar(content: Text('Processando Datos')));
+                      _formKey.currentState.save(); // Ejecutará los métodos onSave de los distintos campos del formulario.
                     }
                   },
                   child: Text('Enviar'),
@@ -379,11 +385,11 @@ class _EditUsuarioWidgetState extends State<EditUsuarioWidget> {
         ],
       );
     } else {
-      strings = ['Admin', 'Editor', 'Juez de Mesa', 'Juez de Silla', 'Visitante'];
+      /*strings = ['Admin', 'Editor', 'Juez de Mesa', 'Juez de Silla', 'Visitante'];
       items = strings.map((String value) => DropdownMenuItem<String>(
         value: value,
         child: Text(value),
-      ));
+      ));*/
       return FutureBuilder(
         future: oldValues,
         builder: (BuildContext context, AsyncSnapshot snapshot){
@@ -396,23 +402,63 @@ class _EditUsuarioWidgetState extends State<EditUsuarioWidget> {
                     decoration:const InputDecoration(
                       icon: Icon(FontAwesomeIcons.user),
                       hintText: "Nombre de Usuario",
-                      labelText: "Nombre",
+                      labelText: "Nombre de Usuario",
                     ),
                     onSaved: (String value) {
                       // Aquí deberemos actualizar el valor del campo nombreUsuario en el documento de la BD.
                     },
                     validator: (String value) {
-                      return value.length < 5 ? 'El nombre es demasiado corto' : '';
+                      if(value.length < 5) {
+                        return 'El nombre es demasiado corto';
+                      } else {
+                        return null;
+                      }
                     },
                   ),
                   // Password
-                  TextFormField(),
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      icon: Icon(FontAwesomeIcons.key),
+                      hintText: "Contraseña",
+                      labelText: "Contraseña",
+                    ),
+                    onSaved: (String value){
+
+                    },
+                    validator: (String value) {
+                      if (value.length < 6) {
+                        return 'La contraseña es demasiado corta';
+                      } else {
+                        return null;
+                      }
+                    },
+                  ),
                   // Email
-                  TextFormField(),
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      icon: Icon(FontAwesomeIcons.envelope),
+                      hintText: "Email",
+                      labelText: "Email",
+                    ),
+                    keyboardType: TextInputType.emailAddress,
+                    onSaved: (String value) {
+
+                    },
+                    validator: (String value) {
+                      Pattern pattern =
+                          r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+                      RegExp regExp = RegExp(pattern);
+                      if(!regExp.hasMatch(value)){
+                        return "El email no tiene un formato correcto";
+                      } else {
+                        return null;
+                      }
+                    },
+                  ),
                   // Foto
-                  TextFormField(),
+                  //TextFormField(),
                   // Rol
-                  DropdownButton(
+                  /*DropdownButton(
                     value: 'Elija',
                     items: this.items,
                     onChanged: ((String newValue) {
@@ -420,7 +466,7 @@ class _EditUsuarioWidgetState extends State<EditUsuarioWidget> {
                         valorActual = newValue;
                       });
                     }),
-                  ),
+                  ),*/
                 ],
               ),
             ],

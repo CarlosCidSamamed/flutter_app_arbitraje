@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class CustomCard extends StatelessWidget {
+class CustomUsuarioCard extends StatelessWidget {
 
   String urlFoto;
   IconData icono;
@@ -8,7 +8,7 @@ class CustomCard extends StatelessWidget {
   String texto1;
   String texto2;
 
-  CustomCard({ this.urlFoto, this.icono, this.titulo, this.texto1, this.texto2 });
+  CustomUsuarioCard({ this.urlFoto, this.icono, this.titulo, this.texto1, this.texto2 });
 
   @override
   Widget build(BuildContext context) {
@@ -66,6 +66,32 @@ class CustomCard extends StatelessWidget {
             ],
           ),
         ],
+      ),
+    );
+  }
+}
+
+class CustomStatCard extends StatelessWidget{
+
+  final IconData icono;
+  final Image icono2;
+  final String assetIcono2;
+  final String dato;
+
+  CustomStatCard({this. icono, this.icono2, this.assetIcono2, this.dato});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(56.0),
+        child: Column(
+          children: <Widget>[
+            icono != null ? Icon(icono) : ImageIcon(AssetImage(assetIcono2)),
+            Divider(),
+            Text(dato),
+          ],
+        ),
       ),
     );
   }

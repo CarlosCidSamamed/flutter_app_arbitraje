@@ -53,7 +53,7 @@ class ProfileScreen extends StatelessWidget {
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: CustomCard(
+                              child: CustomUsuarioCard(
                                 urlFoto: user.photoUrl ?? '',
                                 icono: FontAwesomeIcons.google,
                                 titulo: user.displayName ?? '',
@@ -63,7 +63,7 @@ class ProfileScreen extends StatelessWidget {
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: CustomCard(
+                              child: CustomUsuarioCard(
                                 urlFoto: usuario.foto ?? '',
                                 icono: FontAwesomeIcons.user,
                                 titulo: usuario.nombreUsuario ?? '',
