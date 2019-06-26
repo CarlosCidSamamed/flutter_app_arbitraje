@@ -491,3 +491,28 @@ class _EditUsuarioWidgetState extends State<EditUsuarioWidget> {
     }
   }
 }
+
+class EditButtonForList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: Icon(FontAwesomeIcons.edit, color: Colors.lightGreen,),
+      onPressed: null, // TODO
+      tooltip: 'Editar',
+      iconSize: 20.0,
+    );
+  }
+}
+
+class DeleteButtonForList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: Icon(FontAwesomeIcons.times, color: Colors.redAccent,),
+      onPressed: null,
+      tooltip: 'Eliminar',
+      iconSize: 20.0,
+    );
+  }
+}
+

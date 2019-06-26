@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'widgets.dart';
 
 class CustomUsuarioCard extends StatelessWidget {
 
@@ -66,6 +67,73 @@ class CustomUsuarioCard extends StatelessWidget {
             ],
           ),
         ],
+      ),
+    );
+  }
+}
+
+class CustomUsuarioListCard extends StatelessWidget {
+
+  String urlFoto;
+  IconData icono;
+  String nombre;
+  String rol;
+
+  double altura;
+  double anchura;
+
+  CustomUsuarioListCard({ this.urlFoto, this.icono, this.nombre, this.rol, this.altura, this.anchura });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 5.0,
+      child: LimitedBox(
+        maxHeight: altura,
+        maxWidth: anchura,
+        child: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                width: 100,
+                height: 100,
+                //margin: EdgeInsets.only(top: 50),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image : DecorationImage(image: NetworkImage(urlFoto)),
+                ),
+              ),
+            ),
+            Container(
+              width: 50,
+              height: 50,
+              child: Icon(icono),
+            ),
+            Container(
+              padding: EdgeInsets.all(10.0),
+              child: Text(
+                nombre,
+                style: TextStyle(
+                    height: 1.5,
+                    fontWeight: FontWeight.bold
+                ),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(15.0),
+              child: Text(
+                rol,
+                style: TextStyle(
+                  height: 1.5,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+            ),
+            EditButtonForList(),
+            DeleteButtonForList(),
+          ],
+        ),
       ),
     );
   }

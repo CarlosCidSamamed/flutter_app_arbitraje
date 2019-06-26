@@ -6,12 +6,14 @@ import 'services/services.dart';
 import 'screens/screens.dart';
 import 'shared/shared.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/services.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp],);
     return MultiProvider(
       providers: [
         StreamProvider<FirebaseUser>.value(stream: AuthService().user),
@@ -37,6 +39,7 @@ class MyApp extends StatelessWidget {
           '/listados': (context) => AdminListHubScreen(),
           //'/listados/usuarios': (context) => UsuariosListScreen(),
           '/listados/usuarios': (context) => FiltroUsuarios(),
+          '/prueba2Col': (context) => SelectLayout(tit: "Prueba",),
         },
 
         // Theme

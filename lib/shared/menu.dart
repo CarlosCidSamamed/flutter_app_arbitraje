@@ -76,7 +76,15 @@ class MenuLateral extends StatelessWidget {
                 auth.signOut();
                 Navigator.pushNamed(context, '/');
               },
-            )
+            ),
+            Divider(),
+            ListTile(
+              title: Text("Prueba Layout 2Col"),
+              trailing: Icon(FontAwesomeIcons.columns),
+              onTap: () {
+                Navigator.of(context).pushNamed('/prueba2Col');
+              },
+            ),
           ],
         ),
       );

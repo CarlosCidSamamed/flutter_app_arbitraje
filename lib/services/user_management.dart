@@ -16,7 +16,8 @@ class UserManegement {
           return LoadingScreen();
         }
         if(snapshot.hasData) {
-          return ProfileScreen();
+          //return ProfileScreen();
+          return SelectLayout();
         } else {
           return LoginScreen();
         }
