@@ -497,7 +497,9 @@ class EditButtonForList extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       icon: Icon(FontAwesomeIcons.edit, color: Colors.lightGreen,),
-      onPressed: null, // TODO
+      onPressed: () {
+        print("EditButtonForList --> PULSADO");
+      }, // TODO
       tooltip: 'Editar',
       iconSize: 20.0,
     );
@@ -509,7 +511,9 @@ class DeleteButtonForList extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       icon: Icon(FontAwesomeIcons.times, color: Colors.redAccent,),
-      onPressed: null,
+      onPressed: () {
+        print("DeleteButtonForList --> PULSADO");
+      },
       tooltip: 'Eliminar',
       iconSize: 20.0,
     );

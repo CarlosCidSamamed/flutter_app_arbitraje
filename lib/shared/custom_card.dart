@@ -91,48 +91,61 @@ class CustomUsuarioListCard extends StatelessWidget {
       child: LimitedBox(
         maxHeight: altura,
         maxWidth: anchura,
-        child: Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                width: 100,
-                height: 100,
-                //margin: EdgeInsets.only(top: 50),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image : DecorationImage(image: NetworkImage(urlFoto)),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  //margin: EdgeInsets.only(top: 50),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image : DecorationImage(image: NetworkImage(urlFoto)),
+                  ),
                 ),
               ),
-            ),
-            Container(
-              width: 50,
-              height: 50,
-              child: Icon(icono),
-            ),
-            Container(
-              padding: EdgeInsets.all(10.0),
-              child: Text(
-                nombre,
-                style: TextStyle(
-                    height: 1.5,
-                    fontWeight: FontWeight.bold
+              Container(
+                width: 50,
+                height: 50,
+                child: Icon(icono),
+              ),
+              Expanded(
+                flex: 2,
+                child: Container(
+                  padding: EdgeInsets.all(10.0),
+                  child: Center(
+                    child: Text(
+                      nombre,
+                      style: TextStyle(
+                          height: 1.5,
+                          fontWeight: FontWeight.bold
+                      ),
+                    ),
+                  ),
                 ),
               ),
-            ),
-            Container(
-              padding: EdgeInsets.all(15.0),
-              child: Text(
-                rol,
-                style: TextStyle(
-                  height: 1.5,
-                  fontStyle: FontStyle.italic,
+              Expanded(
+                flex: 1,
+                child: Container(
+                  padding: EdgeInsets.all(15.0),
+                  child: Center(
+                    child: Text(
+                      rol,
+                      style: TextStyle(
+                        height: 1.5,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            EditButtonForList(),
-            DeleteButtonForList(),
-          ],
+              ),              
+              EditButtonForList(),
+              DeleteButtonForList(),
+            ],
+          ),
         ),
       ),
     );

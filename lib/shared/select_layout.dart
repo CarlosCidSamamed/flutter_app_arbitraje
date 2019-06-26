@@ -8,6 +8,7 @@ import 'shared.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_app_arbitraje/services/services.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SelectLayout extends StatefulWidget {
 
@@ -123,6 +124,32 @@ class TCLMain extends StatefulWidget {
 }
 
 class _TCLMainState extends State<TCLMain> {
+
+
+  static TextEditingController controller = new TextEditingController();
+  String filter;
+
+
+
+  static TextEditingController getController (){
+    return controller;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    controller.addListener(() {
+      setState(() {
+        filter = controller.text;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     print("LimitedBox maxWidth --> " + MediaQuery.of(context).size.width.toString());
@@ -139,15 +166,23 @@ class _TCLMainState extends State<TCLMain> {
               print("TCLMain -- Error al obtener los datos del Future");
               return LoadingScreen();
             } else if(snapshot.hasData){
-              List<Usuario> usuarios = snapshot.data;
-              return ListView(
-                children: usuarios.map((usuario) => CustomUsuarioListCard(
-                  altura: 150, anchura: 150,
-                  urlFoto: usuario.foto,
-                  nombre: usuario.nombreUsuario,
-                  rol: usuario.mostrarRol(usuario.rol),
-                )).toList(),
-              );
+              switch(widget.tipo){
+                case Usuario: {
+                  List<Usuario> usuarios = snapshot.data;
+                  return ListView(
+                    children: usuarios.map((usuario) => CustomUsuarioListCard(
+                      altura: 150, anchura: 150,
+                      urlFoto: usuario.foto,
+                      nombre: usuario.nombreUsuario,
+                      rol: usuario.mostrarRol(usuario.rol),
+                    )).toList(),
+                  );
+                }
+                default: {
+                  return Text("El Tipo especificado en el constructor de TCLMain no coincide con ninguno de los modelos de la App");
+                }
+              }
+
             }
           }
         }
@@ -166,13 +201,79 @@ class TCLOptions extends StatefulWidget {
 }
 
 class _TCLOptionsState extends State<TCLOptions> {
+
+  List<String> roles = ["Admin", "Editor", "JuezMesa", "JuezSilla", "Visitante"];
+  List<DropdownMenuItem<String>> elementosLista;
+  String rolActual;
+
+  List<DropdownMenuItem<String>> getElementosLista(){
+    List<DropdownMenuItem<String>> lista = new List();
+    for(String r in roles){
+      print(r);
+      lista.add(new DropdownMenuItem(
+        value: r,
+        child: Text(r),
+      ));
+    }
+    return lista;
+  }
+
+  void changeDropDownItem(String valor){
+    setState(() {
+      rolActual = valor;
+    });
+  }
+
+  @override
+  void initState() {
+    elementosLista = getElementosLista();
+    rolActual = elementosLista[0].value;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return LimitedBox(
       maxWidth: 200.0,
       maxHeight: MediaQuery.of(context).size.height,
       child: Container(
-        child: Text("Aquí irá el menú de opciones"),
+        width: 200,
+        child: Column(
+          children: [
+            Card(
+              elevation: 5.0,
+              child: Column(
+                children: <Widget>[
+                  Text("Opciones"),
+                  Divider(),
+                  TextField(
+                    controller: _TCLMainState.getController(),
+                    decoration: InputDecoration(
+                      labelText: "Buscador",
+                      hintText: "Buscador",
+                      prefixIcon: Icon(FontAwesomeIcons.search),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                      ),
+                    ),
+                  ),
+                  Divider(),
+                  Icon(FontAwesomeIcons.filter),
+                  DropdownButton(
+                    value: rolActual,
+                    items: roles.map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    onChanged: changeDropDownItem,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
