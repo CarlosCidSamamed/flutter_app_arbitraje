@@ -22,7 +22,7 @@ class SelectLayout extends StatefulWidget {
 class _SelectLayoutState extends State<SelectLayout> {
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    //SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return LayoutBuilder(
         builder: (context, constraints) {
           if(constraints.maxWidth < 500) {
@@ -83,11 +83,11 @@ class _TwoColumnsLayoutState extends State<TwoColumnsLayout> {
   @override
   void initState() {
     super.initState();
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   }
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft,]); // Esto pone el layout de dos columnas en modo horizontal - landscape left.
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.titulo),
@@ -103,7 +103,6 @@ class _TwoColumnsLayoutState extends State<TwoColumnsLayout> {
               ),
             ),
             TCLOptions( // Lateral derecho con opciones
-
             ),
           ],
         ),

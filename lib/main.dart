@@ -13,7 +13,7 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp],);
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp,DeviceOrientation.landscapeLeft,],);
     return MultiProvider(
       providers: [
         StreamProvider<FirebaseUser>.value(stream: AuthService().user),
