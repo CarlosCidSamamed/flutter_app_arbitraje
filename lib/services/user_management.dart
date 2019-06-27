@@ -4,10 +4,10 @@ import 'package:flutter/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../screens/screens.dart';
-import '../shared/shared.dart';
+import 'package:flutter_app_arbitraje/screens/screens.dart';
+import 'package:flutter_app_arbitraje/shared/shared.dart';
 
-class UserManegement {
+class UserManagement {
   Widget handleAuth(){
     return new StreamBuilder(
       stream: FirebaseAuth.instance.onAuthStateChanged, // Se usa el cambio de estado de Auth como stream de datos. Al cambiar el estado se le notifica a esta clase.

@@ -43,7 +43,7 @@ class MenuLateral extends StatelessWidget {
               onTap: () {
                 //Navigator.pushNamed(context, '/inicio');
                 //Navigator.pop(context);
-                UserManegement().authorizeAccess(context);
+                UserManagement().authorizeAccess(context);
               },
             ),
             Divider(),

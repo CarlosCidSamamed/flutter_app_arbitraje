@@ -15,7 +15,7 @@ class SelectLayout extends StatefulWidget {
   final String tit;
   final Type type;
 
-  SelectLayout({  this.tit, this.type});
+  SelectLayout({ Key key, this.tit, this.type}) : super(key: key);
 
   @override
   _SelectLayoutState createState() => _SelectLayoutState();
@@ -41,6 +41,9 @@ class _SelectLayoutState extends State<SelectLayout> {
 
 // Layout para móviles cuya resolución sea menor de 500 pixeles de ancho
 class OneColumnLayoutMini extends StatefulWidget {
+
+  OneColumnLayoutMini ({ Key key }) : super(key: key);
+
   @override
   _OneColumnLayoutMiniState createState() => _OneColumnLayoutMiniState();
 }
@@ -56,6 +59,9 @@ class _OneColumnLayoutMiniState extends State<OneColumnLayoutMini> {
 
 // Layout para móviles cuya resolución sea menor de 600 pixeles de ancho
 class OneColumnLayout extends StatefulWidget {
+
+  OneColumnLayout({ Key key }) : super(key: key);
+
   @override
   _OneColumnLayoutState createState() => _OneColumnLayoutState();
 }
@@ -75,7 +81,7 @@ class TwoColumnsLayout extends StatefulWidget {
   final String titulo;
   final Type tipo;
 
-  TwoColumnsLayout({this.titulo, this.tipo});
+  TwoColumnsLayout({Key key, this.titulo, this.tipo}): super(key: key);
 
   @override
   _TwoColumnsLayoutState createState() => _TwoColumnsLayoutState();
@@ -120,6 +126,7 @@ class _TwoColumnsLayoutState extends State<TwoColumnsLayout> {
               ),
             ),
             TCLOptions( // Lateral derecho con opciones
+              tipo: widget.tipo,
             ),
           ],
         ),
@@ -133,7 +140,7 @@ class TCLMain extends StatefulWidget {
   final Future dataFuture;
   final Type tipo; // Se define el tipo de dato que mostrará la parte central del layout para
 
-  TCLMain({ this.dataFuture, this.tipo });
+  TCLMain({ Key key, this.dataFuture, this.tipo }) : super(key: key);
 
   @override
   _TCLMainState createState() => _TCLMainState();
@@ -225,6 +232,11 @@ Type obtenerTipoDatosLista<T>(List<T> e) => T;
 Type obtenerTipoDatosFuture<T>(Future<T> f) => T;
 
 class TCLOptions extends StatefulWidget {
+
+  final Type tipo;
+
+  TCLOptions ({ Key key, this.tipo }) : super(key: key);
+
   @override
   _TCLOptionsState createState() => _TCLOptionsState();
 }
@@ -233,11 +245,31 @@ class _TCLOptionsState extends State<TCLOptions> {
 
   List<String> roles = ["Admin", "Editor", "JuezMesa", "JuezSilla", "Visitante"];
   List<DropdownMenuItem<String>> elementosLista;
-  String rolActual;
+  String valorActual;
+  List<String> datos = new List();
 
-  List<DropdownMenuItem<String>> getElementosLista(){
+  List<DropdownMenuItem<String>> getElementosLista(Type t){
     List<DropdownMenuItem<String>> lista = new List();
-    for(String r in roles){
+    switch(t){
+      case Usuario: {
+        datos = roles;
+        break;
+      }
+      case Organizador :{
+        datos = ["Federación", "Asociación"];
+        break;
+      }
+      case Campeonato: {
+        break;
+      }
+      case Competidor: {
+        break;
+      }
+      case Combate: {
+        break;
+      }
+    }
+    for(String r in datos){
       print(r);
       lista.add(new DropdownMenuItem(
         value: r,
@@ -249,14 +281,14 @@ class _TCLOptionsState extends State<TCLOptions> {
 
   void changeDropDownItem(String valor){
     setState(() {
-      rolActual = valor;
+      valorActual = valor;
     });
   }
 
   @override
   void initState() {
-    elementosLista = getElementosLista();
-    rolActual = elementosLista[0].value;
+    elementosLista = getElementosLista(widget.tipo);
+    valorActual = elementosLista[0].value;
     super.initState();
   }
 
@@ -289,8 +321,8 @@ class _TCLOptionsState extends State<TCLOptions> {
                   Divider(),
                   Icon(FontAwesomeIcons.filter),
                   DropdownButton(
-                    value: rolActual,
-                    items: roles.map<DropdownMenuItem<String>>((String value) {
+                    value: valorActual,
+                    items: datos.map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
                         child: Text(value),
@@ -301,12 +333,94 @@ class _TCLOptionsState extends State<TCLOptions> {
                 ],
               ),
             ),
+            Card(
+              elevation: 5.0,
+              child: Container(
+                width: 200,
+                child: Column(
+                  children: [
+                    BotonesOpciones(tipo: widget.tipo),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 }
+
+class BotonesOpciones extends StatelessWidget {
+
+  final Type tipo;
+
+  BotonesOpciones({Key key, this.tipo}): super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    switch(tipo){
+      case Usuario: {
+        return Column(
+          children: [
+            IconButton(
+                icon: Icon(FontAwesomeIcons.user),
+                onPressed: () {
+                  print("BotonesOpciones --> Pulsado Botón Nuevo Usuario...");
+                  return NuevoUsuarioForm();
+                }),
+          ],
+        );
+      }
+      case Organizador: {
+        return Column(
+          children: [
+            IconButton(
+                icon: Icon(FontAwesomeIcons.book),
+                onPressed: null)
+          ],
+        );
+      }
+      case Campeonato: {
+        return Column(
+          children: [
+            IconButton(
+                icon: Icon(FontAwesomeIcons.trophy),
+                onPressed: null)
+          ],
+        );
+      }
+      case Competidor: {
+        return Column(
+          children: [
+            IconButton(
+                icon: ImageIcon(AssetImage("assets/icons/boxing-glove.png")),
+                onPressed: null)
+          ],
+        );
+      }
+      case Combate: {
+        return Column(
+          children: [
+            IconButton(
+                icon: ImageIcon(AssetImage("assets/icons/boxing.png")),
+                onPressed: null)
+          ],
+        );
+      }
+      default: {
+        return Column(
+          children: [
+            IconButton(
+                icon: Icon(FontAwesomeIcons.google),
+                onPressed: null)
+          ],
+        );
+      }
+    }
+  }
+}
+
 
 
 

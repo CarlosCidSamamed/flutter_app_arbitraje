@@ -21,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return UserManegement().handleAuth();
+    return UserManagement().handleAuth();
     /*return Scaffold(
       appBar: AppBar(
         title: Text('Inicio'),
