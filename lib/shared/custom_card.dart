@@ -107,13 +107,16 @@ class CustomUsuarioListCard extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
-                width: 50,
-                height: 50,
-                child: Icon(icono),
+              Expanded(
+                flex: 1,
+                child: Container(
+                  width: 50,
+                  height: 50,
+                  child: Icon(icono),
+                ),
               ),
               Expanded(
-                flex: 2,
+                flex: 3,
                 child: Container(
                   padding: EdgeInsets.all(10.0),
                   child: Center(
@@ -128,7 +131,7 @@ class CustomUsuarioListCard extends StatelessWidget {
                 ),
               ),
               Expanded(
-                flex: 1,
+                flex: 2,
                 child: Container(
                   padding: EdgeInsets.all(15.0),
                   child: Center(
@@ -151,6 +154,91 @@ class CustomUsuarioListCard extends StatelessWidget {
     );
   }
 }
+
+class CustomOrgListCard extends StatelessWidget {
+
+  String urlLogo;
+  String nombre;
+  String pais;
+  String ciudad;
+
+  double anchura;
+  double altura;
+
+  CustomOrgListCard ({ this.urlLogo, this.nombre, this.pais, this.ciudad, this.anchura, this.altura });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 5.0,
+      child: LimitedBox(
+        maxWidth: anchura,
+        maxHeight: altura,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  //margin: EdgeInsets.only(top: 50),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image : (urlLogo != null) ? DecorationImage(image: NetworkImage(urlLogo)) : DecorationImage(image: AssetImage("assets/icons/logo_app1.png"))),
+                ),
+              ),
+              Expanded(
+                flex: 3,
+                child: Container(
+                  padding: EdgeInsets.all(10.0),
+                  child: Center(
+                    child: Text(
+                      nombre,
+                      style: TextStyle(
+                          height: 1.5,
+                          fontWeight: FontWeight.bold
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: //Text(pais),
+                  Container(
+                      height: 40,
+                      width: 60,
+                      child: Image(image: getFlagForCountry(pais))
+                  ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(ciudad),
+              ),
+              EditButtonForList(),
+              DeleteButtonForList(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+AssetImage getFlagForCountry(String country){
+  print(country);
+  switch(country){
+    case "España": {
+      return AssetImage('assets/icons/flags/es.png');
+    }
+    default: {
+      return AssetImage('assets/icons/logo_app1.png');
+    }
+  }
+}
+
 
 class CustomStatCard extends StatelessWidget{
 

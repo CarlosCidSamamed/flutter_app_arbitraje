@@ -37,9 +37,10 @@ class MyApp extends StatelessWidget {
           '/acerca': (context) => AboutScreen(),
           // Listados ADMIN
           '/listados': (context) => AdminListHubScreen(),
-          //'/listados/usuarios': (context) => UsuariosListScreen(),
-          '/listados/usuarios': (context) => FiltroUsuarios(),
-          '/prueba2Col': (context) => SelectLayout(tit: "Prueba",),
+          '/listados/usuarios': (context) => SelectLayout(tit: "Usuarios", type: Usuario),
+          '/listados/orgs': (context) => SelectLayout(tit: "Organizaciones", type: Organizador),
+          //'/listados/usuarios': (context) => FiltroUsuarios(),
+          //'/prueba2Col': (context) => SelectLayout(tit: "Prueba", tipo),
         },
 
         // Theme

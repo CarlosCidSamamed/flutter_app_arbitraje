@@ -4,11 +4,14 @@
 import 'package:flutter/material.dart';
 import '../../shared/shared.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter/services.dart';
+
 
 
 class AdminListHubScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft],);
     return Scaffold(
       appBar: AppBar(
         title: Text("Admin -- Listados"),
@@ -27,7 +30,7 @@ class AdminListHubScreen extends StatelessWidget{
             leading: Icon(FontAwesomeIcons.book),
             title: Text("Organizaciones"),
             onTap: () {
-              
+              Navigator.of(context).pushNamed('/listados/orgs');
             },
           ),
           ListTile(

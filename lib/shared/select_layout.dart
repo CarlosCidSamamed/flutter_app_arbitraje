@@ -13,8 +13,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class SelectLayout extends StatefulWidget {
 
   final String tit;
+  final Type type;
 
-  SelectLayout({  this.tit });
+  SelectLayout({  this.tit, this.type});
 
   @override
   _SelectLayoutState createState() => _SelectLayoutState();
@@ -31,7 +32,7 @@ class _SelectLayoutState extends State<SelectLayout> {
           } else  if (constraints.maxWidth < 600){
             return OneColumnLayout();     // DOS
           } else {
-            return TwoColumnsLayout(titulo: widget.tit,);    // UNO
+            return TwoColumnsLayout(titulo: widget.tit, tipo: widget.type,);    // UNO
           }
         },
     );
@@ -72,8 +73,9 @@ class _OneColumnLayoutState extends State<OneColumnLayout> {
 class TwoColumnsLayout extends StatefulWidget {
 
   final String titulo;
+  final Type tipo;
 
-  TwoColumnsLayout({this.titulo});
+  TwoColumnsLayout({this.titulo, this.tipo});
 
   @override
   _TwoColumnsLayoutState createState() => _TwoColumnsLayoutState();
@@ -84,6 +86,20 @@ class _TwoColumnsLayoutState extends State<TwoColumnsLayout> {
   @override
   void initState() {
     super.initState();
+  }
+  
+  Future getDataFuture(Type tipo){
+    switch(tipo){
+      case Usuario: {
+        return Global.usuariosRef.getData();
+      }
+      case Organizador: {
+        return Global.organizadoresRef.getData();
+      }
+      default: {
+        return null;
+      }
+    }
   }
 
   @override
@@ -99,8 +115,8 @@ class _TwoColumnsLayoutState extends State<TwoColumnsLayout> {
           children: <Widget>[
             Expanded(
               child: TCLMain( // Parte central
-                dataFuture: Global.usuariosRef.getData(),
-                tipo: Usuario,
+                dataFuture: getDataFuture(widget.tipo),
+                tipo: widget.tipo,
               ),
             ),
             TCLOptions( // Lateral derecho con opciones
@@ -126,28 +142,28 @@ class TCLMain extends StatefulWidget {
 class _TCLMainState extends State<TCLMain> {
 
 
-  static TextEditingController controller = new TextEditingController();
+  //static TextEditingController controller = new TextEditingController();
   String filter;
 
 
 
-  static TextEditingController getController (){
+  /*static TextEditingController getController (){
     return controller;
-  }
+  }*/
 
   @override
   void initState() {
     super.initState();
-    controller.addListener(() {
+    /*controller.addListener(() {
       setState(() {
         filter = controller.text;
       });
-    });
+    });*/
   }
 
   @override
   void dispose() {
-    controller.dispose();
+    //controller.dispose();
     super.dispose();
   }
   @override
@@ -175,6 +191,19 @@ class _TCLMainState extends State<TCLMain> {
                       urlFoto: usuario.foto,
                       nombre: usuario.nombreUsuario,
                       rol: usuario.mostrarRol(usuario.rol),
+                      icono: FontAwesomeIcons.userAlt,
+                    )).toList(),
+                  );
+                }
+                case Organizador: {
+                  List<Organizador> orgs = snapshot.data;
+                  return ListView(
+                    children: orgs.map((org) => CustomOrgListCard(
+                      altura: 150, anchura: 150,
+                      urlLogo: org.logo,
+                      nombre: org.nombre,
+                      pais: org.pais,
+                      ciudad: org.ciudad,
                     )).toList(),
                   );
                 }
@@ -247,7 +276,7 @@ class _TCLOptionsState extends State<TCLOptions> {
                   Text("Opciones"),
                   Divider(),
                   TextField(
-                    controller: _TCLMainState.getController(),
+                    //controller: _TCLMainState.getController(),
                     decoration: InputDecoration(
                       labelText: "Buscador",
                       hintText: "Buscador",

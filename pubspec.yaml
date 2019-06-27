@@ -50,6 +50,7 @@ flutter:
   assets:
     - assets/
     - assets/icons/
+    - assets/icons/flags/
     - assets/images/
 
   # The following line ensures that the Material Icons font is
