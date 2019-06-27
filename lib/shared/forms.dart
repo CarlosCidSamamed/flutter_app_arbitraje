@@ -221,16 +221,31 @@ class _NuevoUsuarioFormState extends State<NuevoUsuarioForm> with ValidationMixi
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: formKey,
-      child: Column(
-        children: <Widget>[
-          emailField(),
-          nombreUsuarioField(),
-          rolField(),
-          Container(margin: EdgeInsets.only(top: 25.0),),
-          botonEnviar(),
-        ],
+    return Scaffold(
+      appBar: AppBar(title: Text("Nuevo Usuario"),),
+      drawer: MenuLateral(),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(40.0),
+            child: Form(
+              key: formKey,
+              child: Column(
+                children: <Widget>[
+                  emailField(),
+                  nombreUsuarioField(),
+                  rolField(),
+                  Container(margin: EdgeInsets.only(top: 25.0),),
+                  botonEnviar(),
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -293,7 +308,7 @@ class _NuevoUsuarioFormState extends State<NuevoUsuarioForm> with ValidationMixi
 class ValidationMixin {
   String validateEmail(String value) {
     if(!value.contains('@')){
-      return "El email introducido no es correcto...";
+      return "El Email introducido no es correcto...";
     }
     return null;
   }

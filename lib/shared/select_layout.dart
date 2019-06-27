@@ -367,7 +367,7 @@ class BotonesOpciones extends StatelessWidget {
                 icon: Icon(FontAwesomeIcons.user),
                 onPressed: () {
                   print("BotonesOpciones --> Pulsado Botón Nuevo Usuario...");
-                  return NuevoUsuarioForm();
+                  Navigator.of(context).pushNamed('/add/usuario');
                 }),
           ],
         );
