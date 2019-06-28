@@ -41,6 +41,7 @@ class MyApp extends StatelessWidget {
           '/listados/orgs': (context) => SelectLayout(tit: "Organizaciones", type: Organizador),
           //'/listados/usuarios': (context) => FiltroUsuarios(),
           //'/prueba2Col': (context) => SelectLayout(tit: "Prueba", tipo),
+          '/pruebaCrono': (context) => MesaScreen(),
           //CRUD
           '/add/usuario': (context) => NuevoUsuarioForm(),
         },

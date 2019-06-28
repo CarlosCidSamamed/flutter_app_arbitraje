@@ -9,3 +9,4 @@ export 'juezMesa.dart';
 export 'juezSilla.dart';
 export 'visitante.dart';
 export 'inicio.dart';
+export 'arbitraje/arbitraje.dart';

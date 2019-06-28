@@ -77,14 +77,14 @@ class MenuLateral extends StatelessWidget {
                 Navigator.pushNamed(context, '/');
               },
             ),
-            /*Divider(),
+            Divider(),
             ListTile(
-              title: Text("Prueba Layout 2Col"),
-              trailing: Icon(FontAwesomeIcons.columns),
+              title: Text("Prueba Crono"),
+              trailing: Icon(FontAwesomeIcons.stopwatch),
               onTap: () {
-                Navigator.of(context).pushNamed('/prueba2Col');
+                Navigator.of(context).pushNamed('/pruebaCrono');
               },
-            ),*/
+            ),
           ],
         ),
       );
