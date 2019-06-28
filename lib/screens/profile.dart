@@ -11,14 +11,32 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class ProfileScreen extends StatelessWidget {
   final AuthService auth = AuthService();
 
+  bool checkScreenSize(BuildContext context){
+    bool res = false;
+    if(MediaQuery.of(context).size.width < 500) {
+      SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp,]); // Bloquear la orientación de la pantalla a vertical y sin invertir.
+    } else {
+      SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft,]); // Bloquear la orientación de la pantalla a horiznotal y sin invertir.
+      res = true;
+    }
+    return res;
+  }
+
   @override
   Widget build(BuildContext context) {
     FirebaseUser user = Provider.of<FirebaseUser>(context);
 
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-    ]); // Bloquear la orientación de la pantalla a vertical y sin invertir.
+    bool horizontal = checkScreenSize(context);
 
+    if(!horizontal) {
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+      ]); // Bloquear la orientación de la pantalla a vertical y sin invertir.
+    } else {
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.landscapeLeft,
+      ]);
+    }
     if (user != null) {
       LoadingScreen();
       Future datos = UserData<Usuario>(collection: 'usuarios').getDocument();
@@ -110,4 +128,6 @@ class ProfileScreen extends StatelessWidget {
       return LoadingScreen();
     }
   }
+
+
 }
