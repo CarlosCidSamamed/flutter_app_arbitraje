@@ -34,7 +34,9 @@ class _MyCountdownTimerState extends State<MyCountdownTimer>
     ThemeData themeData = Theme.of(context);
     return Column(
       children: <Widget>[
-        Expanded(
+        LimitedBox(
+          maxWidth: MediaQuery.of(context).size.width / 3,
+          maxHeight: MediaQuery.of(context).size.height / 3,
           child: Align(
             alignment: FractionalOffset.center,
             child: AspectRatio(
@@ -49,7 +51,7 @@ class _MyCountdownTimerState extends State<MyCountdownTimer>
                           painter: TimerPainter(
                             animation: controller,
                             backgroundColor: Colors.white,
-                            color: themeData.indicatorColor,
+                            color: Colors.green,
                           ),
                         );
                       },
@@ -59,18 +61,24 @@ class _MyCountdownTimerState extends State<MyCountdownTimer>
                     alignment: FractionalOffset.center,
                     child: Column(
                       children: <Widget>[
-                        Text(
-                          "Crono",
-                          style: themeData.textTheme.subhead,
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            "Crono",
+                            style: themeData.textTheme.subhead,
+                          ),
                         ),
-                        AnimatedBuilder(
-                          animation: controller,
-                          builder: (BuildContext context, Widget child) {
-                            return Text(
-                              timerString,
-                              style: themeData.textTheme.display4,
-                            );
-                          },
+                        Padding(
+                          padding: const EdgeInsets.all(24.0),
+                          child: AnimatedBuilder(
+                            animation: controller,
+                            builder: (BuildContext context, Widget child) {
+                              return Text(
+                                timerString,
+                                style: themeData.textTheme.display4,
+                              );
+                            },
+                          ),
                         ),
                       ],
                     ),
@@ -86,7 +94,7 @@ class _MyCountdownTimerState extends State<MyCountdownTimer>
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               FloatingActionButton(
-                backgroundColor: (controller.isAnimating ? Colors.purpleAccent : Colors.pinkAccent),
+                backgroundColor: (controller.isAnimating ? Colors.green : Colors.green),
                 child: AnimatedBuilder(
                     animation: controller,
                     builder: (BuildContext context, Widget child) {
