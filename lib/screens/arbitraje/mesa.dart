@@ -52,7 +52,6 @@ class _MesaScreenState extends State<MesaScreen> {
         child: Row(
           children: <Widget>[
             //MyCountdownTimer(),
-            // TODO: Revisar definición de UIRojo, UICentral y UIAzul.
             UIRojo(),
             UICentral(),
             UIAzul(),
@@ -164,7 +163,6 @@ class _MesaScreenState extends State<MesaScreen> {
             ),
             // Fila de Texts con A, P, S y C para Asalto 2
             Row(
-
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 Text('0',

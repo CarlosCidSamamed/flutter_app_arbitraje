@@ -106,6 +106,9 @@ class Organizador { // Entidad Organizadora de un Campeonato, ya sea una Federac
       pais: data['pais'],
       ciudad: data['ciudad'],
       direccion: data['direccion'],
+      telf: data['telefono'],
+      web: data['web'],
+      email: data['email'],
       tipo: data['tipo'],
 
       numCamps: data['numCamps'],

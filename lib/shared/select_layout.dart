@@ -206,6 +206,7 @@ class _TCLMainState extends State<TCLMain> {
                   List<Organizador> orgs = snapshot.data;
                   return ListView(
                     children: orgs.map((org) => CustomOrgListCard(
+                      org: org,
                       altura: 150, anchura: 150,
                       urlLogo: org.logo,
                       nombre: org.nombre,
