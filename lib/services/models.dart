@@ -118,7 +118,7 @@ class Organizador { // Entidad Organizadora de un Campeonato, ya sea una Federac
       listaIDsJueces: (data['listaIDsCamps'] as List ?? []),
 
       numCompetidores: data['numCompetidores'],
-      listaIDsCompetidores: (data['listaIDsCamps'] as List ?? [])
+      listaIDsCompetidores: (data['listaIDsCompetidores'] as List ?? [])
     );
   }
 
@@ -130,6 +130,9 @@ class Campeonato {
   String fecha;
   String lugar;
   String tipo;
+  String urlCartel;
+
+  String idOrg; // Id de la organización de la que depende este Campeonato
 
   List<String> listaIDsJueces;
   List<Modalidad> listaModalidades;
@@ -137,7 +140,7 @@ class Campeonato {
   int numZonasCombate;
   List<String> listaIDsZonasCombate;
 
-  Campeonato({ this.idCamp, this.nombre, this.fecha, this.lugar, this.tipo, 
+  Campeonato({ this.idCamp, this.nombre, this.fecha, this.lugar, this.tipo, this.urlCartel, this.idOrg,
                this.listaIDsJueces, this.listaModalidades, 
                this.numZonasCombate, this.listaIDsZonasCombate});
 
@@ -148,6 +151,9 @@ class Campeonato {
       fecha: data['fecha'],
       lugar: data['lugar'],
       tipo: data['tipo'],
+      urlCartel: data['urlCartel'],
+
+      idOrg: data['idOrg'],
 
       listaIDsJueces: (data['listaIDsJueces'] as List ?? []),
       listaModalidades: (data['listaModalidades'] as List ?? []).map((v) => Modalidad.fromMap(v)).toList(),

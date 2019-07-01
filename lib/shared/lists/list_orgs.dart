@@ -131,13 +131,51 @@ class OrganizadorScreen extends StatelessWidget {
           //backgroundColor: Colors.transparent,
           title: Text("Detalle del Organizador"),
         ),
+        bottomNavigationBar: BottomNavigationBar(
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(
+                FontAwesomeIcons.edit,
+                color: Colors.lightGreen,
+              ),
+              title: Text(''),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                FontAwesomeIcons.times,
+                color: Colors.redAccent,
+              ),
+              title: Text(''),
+            ),
+          ].toList(),
+          onTap: (int idx) {
+            switch (idx) {
+              case 0:
+                {
+                  print("Se ha pulsado EDITAR");
+                  MyDialog(
+                    message: "Editar Datos",
+                  ).showMyAlertDialog(context, Organizador);
+                  break;
+                }
+              case 1:
+                {
+                  print("Se ha pulsado ELIMINAR");
+                  MyDialog(
+                    message: "Eliminar Datos",
+                  ).showMyDeleteDialog(context, Organizador);
+                  break;
+                }
+            }
+          },
+        ),
         body: Column(
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: LimitedBox(
-                maxWidth: MediaQuery.of(context).size.width / 2,
-                maxHeight: MediaQuery.of(context).size.height / 2,
+                maxWidth: MediaQuery.of(context).size.width / 3,
+                maxHeight: MediaQuery.of(context).size.height / 3,
                 child: Center(
                   child: Hero(
                     tag: (organizador.logo != null) ? organizador.logo : 'logo',
@@ -170,7 +208,14 @@ class OrganizadorScreen extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text(organizador.pais),
+                      child: LimitedBox(
+                          maxHeight: 75,
+                          maxWidth: 75,
+                          child: Tooltip(
+                            message: organizador.pais,
+                            child: Image(
+                                image: getFlagForCountry(organizador.pais)),
+                          )),
                     ),
                   ],
                 ),
@@ -200,46 +245,46 @@ class OrganizadorScreen extends StatelessWidget {
                           ),
                     (organizador.email != null)
                         ? Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Icon(FontAwesomeIcons.envelope),
-                        ),
-                        Text(organizador.email)
-                      ],
-                    )
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Icon(FontAwesomeIcons.envelope),
+                              ),
+                              Text(organizador.email)
+                            ],
+                          )
                         : Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Icon(FontAwesomeIcons.envelope),
-                        ),
-                        Text('Email')
-                      ],
-                    ),
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Icon(FontAwesomeIcons.envelope),
+                              ),
+                              Text('Email')
+                            ],
+                          ),
                     (organizador.web != null)
                         ? Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Icon(FontAwesomeIcons.chrome),
-                        ),
-                        Text(organizador.web)
-                      ],
-                    )
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Icon(FontAwesomeIcons.chrome),
+                              ),
+                              Text(organizador.web)
+                            ],
+                          )
                         : Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Icon(FontAwesomeIcons.chrome),
-                        ),
-                        Text('Web')
-                      ],
-                    ),
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Icon(FontAwesomeIcons.chrome),
+                              ),
+                              Text('Web')
+                            ],
+                          ),
                   ],
                 ),
                 // Stats

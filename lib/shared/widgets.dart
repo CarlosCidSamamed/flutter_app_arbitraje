@@ -124,12 +124,12 @@ class UsuarioScreen extends StatelessWidget {
             switch(idx){
               case 0:{
                 print("Se ha pulsado EDITAR");
-                MyDialog(message: "Editar Datos",).showMyAlertDialog(context);
+                MyDialog(message: "Editar Datos",).showMyAlertDialog(context, Usuario);
                 break;
               }
               case 1:{
                 print("Se ha pulsado ELIMINAR");
-                MyDialog(message: "Eliminar Datos",).showMyDeleteDialog(context);
+                MyDialog(message: "Eliminar Datos",).showMyDeleteDialog(context, Usuario);
                 break;
               }
             }
@@ -145,7 +145,7 @@ class MyDialog extends Dialog {
 
   MyDialog ({this.message});
 
-  Future<void> showMyAlertDialog (BuildContext context) async {
+  Future<void> showMyAlertDialog (BuildContext context, Type tipo) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // User must tap button
@@ -155,7 +155,7 @@ class MyDialog extends Dialog {
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Text('¿Desea editar los datos de este Usuario?'),
+                Text('¿Desea editar los datos de ' + tipo.toString() + '?'),
               ],
             ),
           ),
@@ -200,7 +200,7 @@ class MyDialog extends Dialog {
     );
   }
 
-  Future<void> showMyDeleteDialog(BuildContext context) async {
+  Future<void> showMyDeleteDialog(BuildContext context, Type tipo) async {
     return showDialog(
       context: context,
       barrierDismissible: false,
@@ -210,7 +210,7 @@ class MyDialog extends Dialog {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Text('¿Desea eliminar los datos de este Usuario?'),
+              child: Text('¿Desea eliminar los datos de ' + tipo.toString() + '?'),
             ),
             Padding(
               padding: const EdgeInsets.all(20.0),
@@ -312,7 +312,7 @@ class DeleteButtonForList extends StatelessWidget {
       icon: Icon(FontAwesomeIcons.times, color: Colors.redAccent,),
       onPressed: () {
         print("DeleteButtonForList --> PULSADO");
-      },
+      }, //TODO
       tooltip: 'Eliminar',
       iconSize: 20.0,
     );
