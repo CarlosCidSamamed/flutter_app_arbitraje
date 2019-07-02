@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:async';
 import 'package:rxdart/rxdart.dart';
 import './globals.dart';
+import 'services.dart';
 
 class Document<T> {
   final Firestore _db = Firestore.instance;
@@ -45,6 +46,13 @@ class Collection<T> {
   Stream<List<T>> streamData() {
     return ref.snapshots().map(
         (list) => list.documents.map((doc) => Global.models[T](doc.data) as T));
+  }
+
+  Future<List<Campeonato>> getFilteredDataCampsIdOrg(String field, String filter) async {
+    var snapshots = await ref.where(field, isEqualTo: filter).getDocuments();
+    return snapshots.documents
+        .map((doc) => Global.models[Campeonato](doc.data) as Campeonato)
+        .toList();
   }
 }
 

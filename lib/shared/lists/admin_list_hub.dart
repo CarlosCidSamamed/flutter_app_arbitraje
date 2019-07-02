@@ -37,7 +37,7 @@ class AdminListHubScreen extends StatelessWidget{
             leading: Icon(FontAwesomeIcons.trophy),
             title: Text("Campeonatos"),
             onTap: () {
-              
+              Navigator.of(context).pushNamed('/listados/camps');
             },
           ),
           ListTile(

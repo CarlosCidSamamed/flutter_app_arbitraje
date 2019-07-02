@@ -185,7 +185,9 @@ class CustomOrgListCard extends StatelessWidget {
         onTap: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (BuildContext context) => OrganizadorScreen(organizador: org,),
+              builder: (BuildContext context) => OrganizadorScreen(
+                    organizador: org,
+                  ),
             ),
           );
         },
@@ -344,6 +346,75 @@ class CustomStatCard extends StatelessWidget {
             Divider(),
             Text(dato),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class CustomCampListCard extends StatelessWidget {
+  Campeonato campeonato;
+  double altura;
+  double anchura;
+  String nombre;
+  String fecha;
+  String lugar;
+
+  CustomCampListCard({
+    Key key,
+    this.campeonato,
+    this.altura,
+    this.anchura,
+    this.nombre,
+    this.fecha,
+    this.lugar,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 5.0,
+      child: InkWell(
+        onTap: () {},
+        /*() {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (BuildContext context) =>
+                  CampeonatoScreen(cammpeonato: campeonato,),*/
+
+        child: LimitedBox(
+          maxWidth: anchura,
+          maxHeight: altura,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: Container(
+                    padding: EdgeInsets.all(10.0),
+                    child: Center(
+                      child: Text(
+                        nombre,
+                        style:
+                            TextStyle(height: 1.5, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(fecha),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(lugar),
+                ),
+                EditButtonForList(),
+                DeleteButtonForList(),
+              ],
+            ),
+          ),
         ),
       ),
     );

@@ -102,6 +102,9 @@ class _TwoColumnsLayoutState extends State<TwoColumnsLayout> {
       case Organizador: {
         return Global.organizadoresRef.getData();
       }
+      case Campeonato: {
+        return Global.campeonatosRef.getData();
+      }
       default: {
         return null;
       }
@@ -175,8 +178,13 @@ class _TCLMainState extends State<TCLMain> {
   }
   @override
   Widget build(BuildContext context) {
-    print("LimitedBox maxWidth --> " + MediaQuery.of(context).size.width.toString());
-    return LimitedBox(
+    if(widget.dataFuture == null){
+      return LimitedBox(
+          maxWidth: MediaQuery.of(context).size.width - 200,
+          maxHeight: MediaQuery.of(context).size.height,
+          child: Center(child: Text("_TCLMainState.build ha recibido un dataFuture NULL")),
+      );
+    } else return LimitedBox(
       maxWidth: MediaQuery.of(context).size.width - 200,
       maxHeight: MediaQuery.of(context).size.height,
       child: FutureBuilder(
@@ -215,6 +223,18 @@ class _TCLMainState extends State<TCLMain> {
                     )).toList(),
                   );
                 }
+                case Campeonato: {
+                  List<Campeonato> camps = snapshot.data;
+                  return ListView(
+                    children: camps.map((camp) => CustomCampListCard(
+                      campeonato: camp,
+                      altura: 150, anchura: 150,
+                      nombre: camp.nombre,
+                      fecha: camp.fecha,
+                      lugar: camp.lugar,
+                    )).toList(),
+                  );
+                }
                 default: {
                   return Text("El Tipo especificado en el constructor de TCLMain no coincide con ninguno de los modelos de la App");
                 }
@@ -245,6 +265,8 @@ class TCLOptions extends StatefulWidget {
 class _TCLOptionsState extends State<TCLOptions> {
 
   List<String> roles = ["Admin", "Editor", "JuezMesa", "JuezSilla", "Visitante"];
+  List<String> tiposOrgs = ["Federación", "Asociación"];
+  List<String> tiposCamps = ["Provincial", "Nacional", "Internacional"];
   List<DropdownMenuItem<String>> elementosLista;
   String valorActual;
   List<String> datos = new List();
@@ -257,10 +279,11 @@ class _TCLOptionsState extends State<TCLOptions> {
         break;
       }
       case Organizador :{
-        datos = ["Federación", "Asociación"];
+        datos = tiposOrgs;
         break;
       }
       case Campeonato: {
+        datos = tiposCamps;
         break;
       }
       case Competidor: {

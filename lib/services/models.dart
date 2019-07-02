@@ -436,6 +436,8 @@ class Competidor {
   String apellido2;
   String fechaNac;
 
+  String idOrg;
+
   String sexo;
   int edad;
   double peso;
@@ -455,7 +457,7 @@ class Competidor {
 
   String foto;
 
-  Competidor({ this.id, this.dni, this.nombre, this.apellido1, this.apellido2, this.fechaNac,
+  Competidor({ this.id, this.dni, this.nombre, this.apellido1, this.apellido2, this.fechaNac, this.idOrg,
                this.sexo, this.edad, this.peso, this.historicoPesos, this.catEdad, this.catPeso,
                this.altura, this.envergadura, this.guardia,
                this.combatesGanados, this.combatesPerdidos,
@@ -469,6 +471,7 @@ class Competidor {
       apellido1: data['apellido1'],
       apellido2: data['apellido2'],
       fechaNac: data['fechaNac'],
+      idOrg: data['idOrg'],
       sexo: data['sexo'],
       edad: data['edad'],
       peso: data['peso'],
@@ -535,6 +538,9 @@ class Juez {
       tokenIDFCM: data['tokenIDFCM'],
       conectado: data['conectado'],
       listo: data['listo'],
+      foto: data['foto'],
+      pais: data['pais'],
+      federacionAsoc: data['federacionAsoc'],
       nivel: data['nivel'],
       cargo: data['cargo'],
       idCamp: data['idCamp'],
@@ -562,8 +568,9 @@ class Usuario {
   //Rol rol;
   String rol;
   String foto;
+  String idOrg; // En el caso de que el Rol sea ADMIN este campo será "" (cadena vacía).
 
-  Usuario({ this.id, this.email, this.password, this.nombreUsuario, this.rol, this.foto });
+  Usuario({ this.id, this.email, this.password, this.nombreUsuario, this.rol, this.foto, this.idOrg });
 
   factory Usuario.fromMap(Map data){
     return Usuario(
@@ -572,7 +579,8 @@ class Usuario {
       password: data['password'],
       nombreUsuario: data['nombreUsuario'],
       rol: data['Rol'] ?? '',
-      foto: data['foto']
+      foto: data['foto'],
+      idOrg: data['idOrg']
     );
   }
 

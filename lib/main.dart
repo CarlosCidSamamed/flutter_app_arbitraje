@@ -39,6 +39,7 @@ class MyApp extends StatelessWidget {
           '/listados': (context) => AdminListHubScreen(),
           '/listados/usuarios': (context) => SelectLayout(tit: "Usuarios", type: Usuario),
           '/listados/orgs': (context) => SelectLayout(tit: "Organizaciones", type: Organizador),
+          '/listados/camps': (context) => SelectLayout(tit: "Campeonatos", type: Campeonato),
           //'/listados/usuarios': (context) => FiltroUsuarios(),
           //'/prueba2Col': (context) => SelectLayout(tit: "Prueba", tipo),
           '/pruebaCrono': (context) => MesaScreen(),
