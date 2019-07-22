@@ -266,7 +266,7 @@ class _TCLOptionsState extends State<TCLOptions> {
 
   List<String> roles = ["Admin", "Editor", "JuezMesa", "JuezSilla", "Visitante"];
   List<String> tiposOrgs = ["Federación", "Asociación"];
-  List<String> tiposCamps = ["Provincial", "Nacional", "Internacional"];
+  List<String> tiposCamps = ["Provincial", "Autonómico", "Nacional", "Internacional"];
   List<DropdownMenuItem<String>> elementosLista;
   String valorActual;
   List<String> datos = new List();
