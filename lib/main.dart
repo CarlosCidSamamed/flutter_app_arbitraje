@@ -8,6 +8,9 @@ import 'shared/shared.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 
+// Redux
+
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {

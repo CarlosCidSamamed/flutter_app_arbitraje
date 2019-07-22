@@ -405,7 +405,7 @@ class _MesaScreenState extends State<MesaScreen> {
             Text('Asalto'),
             // Crono con sus botones
             //Text('Crono'),
-            MyCountdownTimer(),
+            MyCountdownTimer("00:00"),
             // Fila de Botones de KO y TKO
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,

@@ -558,7 +558,7 @@ class Juez {
 
 }
 
-enum Rol {Admin, Editor, JuezMesa, JuezSilla, Visitante}
+enum Rol {Admin, Editor, JuezMesa, JuezSilla, Visitante, Crono} // Añadido Rol Crono (22/7/19) --> Su UI tendrá solo el Crono y sus controles.
 
 class Usuario {
   String id;

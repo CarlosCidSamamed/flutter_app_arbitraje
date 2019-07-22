@@ -6,6 +6,14 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 class MyCountdownTimer extends StatefulWidget {
+  String chrono;
+
+  MyCountdownTimer(this.chrono);
+
+  String getChrono() {
+    return this.chrono;
+  }
+
   @override
   _MyCountdownTimerState createState() => _MyCountdownTimerState();
 }
@@ -23,6 +31,7 @@ class _MyCountdownTimerState extends State<MyCountdownTimer>
   @override
   void initState() {
     super.initState();
+    widget.chrono = timerString;
     controller = AnimationController(
       vsync: this,
       duration: Duration(seconds: 120), // 2 minutos.
